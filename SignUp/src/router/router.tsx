@@ -7,7 +7,7 @@ import AuthLayout from "../Layouts/AuthLayout";
 import SignUpPage from "../pages/SignUpPage";
 import LoginPage from "../pages/LogInPage";
 import SignUpPassword from "../pages/SignUpPassword";
-import ForgetPasswordPage from "../pages/ForgetPasswordPage";
+import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import VerifyOTPpage from "../pages/VerifyOTPpage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 
@@ -33,10 +33,10 @@ const signupPasswordRoute = createRoute({
   component: SignUpPassword,
 });
 
-const forgetPasswordRoute = createRoute({
+const forgotPasswordRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/forget-password",
-  component: ForgetPasswordPage,
+  path: "/forgot-password",
+  component: ForgotPasswordPage,
 });
 
 const verifyOtpRoute = createRoute({
@@ -62,7 +62,7 @@ const routeTree = rootRoute.addChildren([
   signupRoute,
   loginRoute,
   signupPasswordRoute,
-  forgetPasswordRoute,
+  forgotPasswordRoute,
   verifyOtpRoute,
   resetPasswordRoute,
 ]);

@@ -2,7 +2,7 @@
 export default function PatternBackground() {
   return (
     <div
-      className="absolute pointer-events-none w-285 h-110"
+      className="absolute pointer-events-none  xl:h-110 max-w-2xs xl:max-w-285  md:max-w-200 flex justify-center align-middle"
       aria-hidden="true"
     >
       <svg

@@ -43,7 +43,7 @@ export function InputField({ id, label, placeholder, value, onChange, icon: Icon
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-               className= "w-full  pr-3 h-9 text-sm text-gray-900 bg-white border placeholder-gray-500 border-gray-200 rounded-lg outline-none focus:border-blue-500 transition-all"
+          className= "w-full  pr-3 h-9 text-sm text-gray-900 bg-white border placeholder-gray-500 border-gray-200 rounded-lg outline-none focus:border-blue-500 transition-all"
         style={{ paddingLeft: Icon ? 32 : 12}}
         /> 
         
@@ -61,6 +61,7 @@ export function InputField({ id, label, placeholder, value, onChange, icon: Icon
 export function RoleSelector({
   role,
   onSelect,
+  roleError,
   options = [
     { value: "employee", label: "Employee" },
     { value: "engineer", label: "Support engineer" },
@@ -68,11 +69,15 @@ export function RoleSelector({
 }) {
   return (
     <div className="flex flex-col w-93.25 h-16 gap-3" >
+      <div className="flex justify-between">
+
       <label
-        className="text-gray-900 font-medium h-3.5 text-xs leading-3.5"
-      >
+        className="text-gray-900 font-medium h-3.5 text-sm leading-3.5"
+        >
         Role
       </label>
+        <span className="text-red-600 text-xs h-3.5">{roleError}</span>
+        </div>
       <div className="flex gap-2 h-10.5" >
         {options.map(({ value, label }) => {
           const selected = role === value;
@@ -83,7 +88,7 @@ export function RoleSelector({
               onClick={() => onSelect(value)}
               className="flex-1 rounded-lg border h-10.5 text-[14px]  font-medium transition-all cursor-pointer"
               style={{
-                borderColor:     selected ? "rgba(37, 99, 235, 1)" : "#E5E7EB",
+                borderColor: selected ? "rgba(37, 99, 235, 1)" : "#E5E7EB",
               }}
             >
               {label}
@@ -153,7 +158,7 @@ export function PasswordField({
       >
         {label}
       </label>
-    <span className=" text-red-600 text-sm h-3"
+    <span className=" text-red-600 text-xs h-3"
       >
           {error}
     </span>
@@ -298,11 +303,12 @@ export default function SignUpForm({
           icon={Building2}
           error={departmentError}
         />
-        <span className="text-red-600 text-xs h-3.5">{roleError}</span>
+        {/* <span className="text-red-600 text-xs h-3.5">{roleError}</span> */}
         <RoleSelector
           role={role}
           onSelect={setRole}
           options={roleOptions}
+          roleError = {roleError}
         />
       </form>
 
