@@ -1,13 +1,15 @@
-import { useNavigate } from "@tanstack/react-router";
-import { Mail } from "lucide-react";
+import { useNavigate, Link } from "@tanstack/react-router";
+import { Mail, Eye, EyeOff, LockKeyhole } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Checkbox } from "../components/ui/checkbox";
 import SignUpCard from "../components/signup/SignUpCard";
-import { InputField, Footer, Button, PasswordField } from "../components/signup/SignUpForm";
 import { loginRequest } from "../api/auth";
-import { Link } from "@tanstack/react-router";
 import { useCredentials } from "../context/CredContext";
 
 const loginSchema = z.object({
@@ -19,14 +21,8 @@ export default function LoginPage() {
   const { setLoginIdentity } = useCredentials();
   const navigate = useNavigate();
 
-  const [isChecked, setIsChecked] = useState<boolean>(false)
-
-  const handleChange = (e) => {
-    //Remember me login Goes here.
-    // setIsChecked(prev => !prev);
-    setIsChecked(e.target.checked);
-    // console.log(isChecked)
-  }
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const loginMutation = useMutation({
     mutationFn: loginRequest,
@@ -39,15 +35,13 @@ export default function LoginPage() {
     },
     onSubmit: async ({ value }) => {
       const parsed = loginSchema.safeParse(value);
-      if (!parsed.success) {
-        return;
-      }
+      if (!parsed.success) return;
       const data = await loginMutation.mutateAsync(value);
       setLoginIdentity({
         email: data.email,
         username: data.username || data.email.split("@")[0] || "",
       });
-      navigate({ to: "/" }); //Dashboard Route; update first in routes then assign
+      navigate({ to: "/" });
     },
   });
 
@@ -58,7 +52,7 @@ export default function LoginPage() {
       styles="min-h-105"
     >
       <form
-        className="flex flex-col w-93.25 gap-3 h-33.5"
+        className="flex flex-col w-93.25 gap-3"
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -75,18 +69,26 @@ export default function LoginPage() {
           }}
         >
           {(field) => (
-            <InputField
-              id="email"
-              label="Email Address"
-              placeholder="Enter your email"
-              type="email"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              icon={Mail}
-              error={field.state.meta.errors[0]}
-            />
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="email">Email Address</Label>
+              <div className="relative">
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  className="pl-9"
+                />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              </div>
+              {field.state.meta.errors[0] && (
+                <p className="text-destructive text-xs">{field.state.meta.errors[0]}</p>
+              )}
+            </div>
           )}
         </FormApi.Field>
+
         <FormApi.Field
           name="password"
           validators={{
@@ -94,65 +96,72 @@ export default function LoginPage() {
           }}
         >
           {(field) => (
-            // <InputField
-            //   id="password"
-            //   label="Password"
-            //   placeholder="Enter your password"
-            //   type="password"
-            //   value={field.state.value}
-            //   onChange={(e) => field.handleChange(e.target.value)}
-            //   icon={LockKeyhole}
-            //   error={field.state.meta.errors[0]}
-            // />
-            <PasswordField
-              id="password"
-              label="Password"
-              placeholder="• • • • • • • • • • "
-              value={field.state.value}
-              error={field.state.meta.errors[0]}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="• • • • • • • • • •"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  className="px-9 tracking-[0.15rem] placeholder:tracking-tighter bg-white "
+                />
+                <LockKeyhole className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {field.state.meta.errors[0] && (
+                <p className="text-destructive text-xs ">{field.state.meta.errors[0]}</p>
+              )}
+            </div>
           )}
         </FormApi.Field>
       </form>
-      {/* <ForgetPassword
-        linkTo="/forget-password"
-        linkText="Forgot password?"
-      /> */}
-      <div
-        className='flex items-center justify-between px-1 w-93.25 h-5'
-      >
-        <div
-          className='w-45 h-5 flex items-center'
-        >
 
-          <input
-            type='checkbox'
-            id='cb1'
+      <div className="flex items-center justify-between px-1 w-93.25">
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="remember"
             checked={isChecked}
-            onChange={handleChange}
-            className='bg-blue-600'
+            onCheckedChange={(checked) => setIsChecked(checked === true)}
           />
-          <label
-            htmlFor='cb1'
-            className='text-slate-900 ml-2 text-[13px] leading-5'
-          >
+          <Label htmlFor="remember" className="text-[13px] font-normal cursor-pointer">
             Keep me logged in
-          </label>
+          </Label>
         </div>
-        <div
-          className='text-slate-900  text-center h-5 text-[13px] leading-5 underline cursor-pointer hover:text-blue-600 active:text-blue-800'>
-          <Link to="/forgot-password">Forgot password?</Link>
-        </div>
-
+        <Link
+          to="/forgot-password"
+          className="text-[13px] underline hover:text-blue-600 active:text-blue-800"
+        >
+          Forgot password?
+        </Link>
       </div>
 
-      <Button buttonLabel={loginMutation.isPending ? "Loading..." : "Login"} onNext={FormApi.handleSubmit} />
-      <Footer
-        footerText={"Don't have an account? "}
-        footerLinkTo={"/signup"}
-        footerLinkText={"Sign up now"}
-      />
+      <Button
+        type="button"
+        onClick={FormApi.handleSubmit}
+        disabled={loginMutation.isPending}
+        className="w-93.25 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold"
+      >
+        {loginMutation.isPending ? "Loading..." : "Login"}
+      </Button>
+
+
+
+      <p className="text-center text-gray-500 w-93.25 text-sm leading-5 h-4 py-1">
+      Don't hve an account?
+      
+        <Link to="/signup" className="text-blue-600 font-medium underline underline-offset-2 ml-1">
+          Sign up now
+        </Link>
+      
+    </p>
     </SignUpCard>
   );
 }
