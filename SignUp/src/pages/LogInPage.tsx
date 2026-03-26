@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { Mail, LockKeyhole } from "lucide-react";
+import { Mail } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { z } from "zod";
@@ -8,7 +8,7 @@ import SignUpCard from "../components/signup/SignUpCard";
 import { InputField, Footer, Button, PasswordField } from "../components/signup/SignUpForm";
 import { loginRequest } from "../api/auth";
 import { Link } from "@tanstack/react-router";
-import { useAuthStore } from "../store/authStore";
+import { useCredentials } from "../context/CredContext";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email address"),
@@ -16,13 +16,13 @@ const loginSchema = z.object({
 });
 
 export default function LoginPage() {
-  const setLoginIdentity = useAuthStore((state) => state.setLoginIdentity);
+  const { setLoginIdentity } = useCredentials();
   const navigate = useNavigate();
 
-  const [isChecked,setIsChecked] = useState<boolean>(false)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   const handleChange = (e) => {
-//Remember me login Goes here.
+    //Remember me login Goes here.
     // setIsChecked(prev => !prev);
     setIsChecked(e.target.checked);
     // console.log(isChecked)
@@ -75,16 +75,16 @@ export default function LoginPage() {
           }}
         >
           {(field) => (
-        <InputField
-          id="email"
-          label="Email Address"
-          placeholder="Enter your email"
-          type="email"
-          value={field.state.value}
-          onChange={(e) => field.handleChange(e.target.value)}
-          icon={Mail}
-          error={field.state.meta.errors[0]}
-        />
+            <InputField
+              id="email"
+              label="Email Address"
+              placeholder="Enter your email"
+              type="email"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              icon={Mail}
+              error={field.state.meta.errors[0]}
+            />
           )}
         </FormApi.Field>
         <FormApi.Field
@@ -94,24 +94,24 @@ export default function LoginPage() {
           }}
         >
           {(field) => (
-        // <InputField
-        //   id="password"
-        //   label="Password"
-        //   placeholder="Enter your password"
-        //   type="password"
-        //   value={field.state.value}
-        //   onChange={(e) => field.handleChange(e.target.value)}
-        //   icon={LockKeyhole}
-        //   error={field.state.meta.errors[0]}
-        // />
-        <PasswordField
-        id="password"
-        label="Password"
-        placeholder="• • • • • • • • • • "
-        value={field.state.value}
-        error={field.state.meta.errors[0]}
-        onChange={(e) => field.handleChange(e.target.value)}
-        />
+            // <InputField
+            //   id="password"
+            //   label="Password"
+            //   placeholder="Enter your password"
+            //   type="password"
+            //   value={field.state.value}
+            //   onChange={(e) => field.handleChange(e.target.value)}
+            //   icon={LockKeyhole}
+            //   error={field.state.meta.errors[0]}
+            // />
+            <PasswordField
+              id="password"
+              label="Password"
+              placeholder="• • • • • • • • • • "
+              value={field.state.value}
+              error={field.state.meta.errors[0]}
+              onChange={(e) => field.handleChange(e.target.value)}
+            />
           )}
         </FormApi.Field>
       </form>
@@ -120,32 +120,32 @@ export default function LoginPage() {
         linkText="Forgot password?"
       /> */}
       <div
-          className='flex items-center justify-between px-1 w-93.25 h-5'
-          >
-          <div 
+        className='flex items-center justify-between px-1 w-93.25 h-5'
+      >
+        <div
           className='w-45 h-5 flex items-center'
-          >
-      
+        >
+
           <input
-          type='checkbox'
-          id='cb1'
-        checked={isChecked}
-        onChange={handleChange}
-          className='bg-blue-600'
+            type='checkbox'
+            id='cb1'
+            checked={isChecked}
+            onChange={handleChange}
+            className='bg-blue-600'
           />
           <label
-          htmlFor='cb1'
-          className='text-slate-900 ml-2 text-[13px] leading-5'
+            htmlFor='cb1'
+            className='text-slate-900 ml-2 text-[13px] leading-5'
           >
-              Keep me logged in
+            Keep me logged in
           </label>
-          </div>
-          <div 
+        </div>
+        <div
           className='text-slate-900  text-center h-5 text-[13px] leading-5 underline cursor-pointer hover:text-blue-600 active:text-blue-800'>
           <Link to="/forgot-password">Forgot password?</Link>
-          </div>
-      
-          </div>
+        </div>
+
+      </div>
 
       <Button buttonLabel={loginMutation.isPending ? "Loading..." : "Login"} onNext={FormApi.handleSubmit} />
       <Footer

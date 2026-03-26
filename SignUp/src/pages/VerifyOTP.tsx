@@ -4,13 +4,12 @@ import SignUpCard from "../components/signup/SignUpCard";
 import OtpInput from "../components/signup/OtpInput";
 import VerifyEmailLogo from "../components/icons/VerifyEmailLogo";
 import { Back, Button, Footer } from "../components/signup/SignUpForm";
-import { useAuthStore } from "../store/authStore";
+import { useCredentials } from "../context/CredContext";
 //error  done
 function VerifyOTP() {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const email = useAuthStore((state) => state.recoveryEmail);
-  const clearRecoveryEmail = useAuthStore((state) => state.clearRecoveryEmail);
+  const { recoveryEmail: email, clearRecoveryEmail } = useCredentials();
   const [error, setError] = useState("");
 
   const handleVerify = () => {

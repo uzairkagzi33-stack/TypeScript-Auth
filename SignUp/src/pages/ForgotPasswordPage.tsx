@@ -5,11 +5,11 @@ import { InputField,Back, Button }      from "../components/signup/SignUpForm";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import PasswordIcon from "../components/icons/PasswordIcon";
-import { useAuthStore } from "../store/authStore";
+import { useCredentials } from "../context/CredContext";
 
 export default function ForgetPasswordPage() {
   const navigate = useNavigate();
-  const setRecoveryEmail = useAuthStore((state) => state.setRecoveryEmail);
+  const { setRecoveryEmail } = useCredentials();
   const form = useForm({
     defaultValues: {
       email: "",
