@@ -47,7 +47,7 @@ export default function LoginPage() {
         email: data.email,
         username: data.username || data.email.split("@")[0] || "",
       });
-      navigate({ to: "/signup" });
+      navigate({ to: "/" }); //Dashboard Route; update first in routes then assign
     },
   });
 

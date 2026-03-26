@@ -4,12 +4,13 @@ import {
   createRouter,
 } from "@tanstack/react-router";
 import AuthLayout from "../Layouts/AuthLayout";
-import SignUpPage from "../pages/SignUpPage";
+// import SignUpPage from "../pages/SignUpPage";
 import LoginPage from "../pages/LogInPage";
-import SignUpPassword from "../pages/SignUpPassword";
+// import SignUpPassword from "../pages/SignUpPassword";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
-import VerifyOTPpage from "../pages/VerifyOTPpage";
+import VerifyOTP from "../pages/VerifyOTP";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
+import SignUpIn2Step from "../pages/SignUp"
 
 const rootRoute = createRootRoute({
   component: AuthLayout,
@@ -18,7 +19,7 @@ const rootRoute = createRootRoute({
 const signupRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/signup",
-  component: SignUpPage,
+  component: SignUpIn2Step,
 });
 
 const loginRoute = createRoute({
@@ -27,11 +28,11 @@ const loginRoute = createRoute({
   component: LoginPage,
 });
 
-const signupPasswordRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/signup2",
-  component: SignUpPassword,
-});
+// const signupPasswordRoute = createRoute({
+//   getParentRoute: () => rootRoute,
+//   path: "/signup2",
+//   component: SignUpPassword,
+// });
 
 const forgotPasswordRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -42,7 +43,7 @@ const forgotPasswordRoute = createRoute({
 const verifyOtpRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/verify-otp",
-  component: VerifyOTPpage,
+  component: VerifyOTP,
 });
 
 const resetPasswordRoute = createRoute({
@@ -61,7 +62,6 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   signupRoute,
   loginRoute,
-  signupPasswordRoute,
   forgotPasswordRoute,
   verifyOtpRoute,
   resetPasswordRoute,
