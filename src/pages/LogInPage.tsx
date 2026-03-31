@@ -69,7 +69,7 @@ export default function LoginPage() {
           }}
         >
           {(field) => (
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="email">Email Address</Label>
               <div className="relative">
                 <Input
@@ -96,7 +96,7 @@ export default function LoginPage() {
           }}
         >
           {(field) => (
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
@@ -111,7 +111,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-gray-700 active:text-gray-900 hover:cursor-pointer"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -124,11 +124,12 @@ export default function LoginPage() {
         </FormApi.Field>
       </form>
 
-      <div className="flex items-center justify-between px-1 w-93.25">
+      <div className="flex items-center justify-between px-1 w-93.25 min-h-5">
         <div className="flex items-center gap-2">
           <Checkbox
             id="remember"
             checked={isChecked}
+            className="hover:cursor-pointer accent-blue-600"
             onCheckedChange={(checked) => setIsChecked(checked === true)}
           />
           <Label htmlFor="remember" className="text-[13px] font-normal cursor-pointer">
@@ -154,7 +155,7 @@ export default function LoginPage() {
 
 
 
-      <p className="text-center text-gray-500 w-93.25 text-sm leading-5 h-4 py-1">
+      <p className="text-center text-gray-500 w-93.25 text-sm leading-5 h-4">
       Don't hve an account?
       
         <Link to="/signup" className="text-blue-600 font-medium underline underline-offset-2 ml-1">

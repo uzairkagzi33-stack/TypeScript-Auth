@@ -131,8 +131,8 @@ export default function ForgotPasswordFlow() {
               }}
             >
               {(field) => (
-                <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="forgotEmail">Email Address</Label>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="forgotEmail" className="min-h-5">Email Address</Label>
                   <div className="relative">
                     <Input
                       id="forgotEmail"
@@ -186,11 +186,11 @@ export default function ForgotPasswordFlow() {
             Submit Code
           </Button>
 
-          <div className="flex flex-col items-center gap-1">
-            <span className="text-sm text-muted-foreground">
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-sm text-muted-foreground h-5">
               Experiencing issues receiving the code?
             </span>
-            <div className="flex w-full text-gray-950 px-2.5 py-4 font-bold justify-center">
+            <div className="flex w-full text-gray-950 font-bold justify-center">
               <div
                 className="cursor-pointer hover:text-blue-600 active:text-blue-800 flex items-center gap-1"
                 onClick={() => {
@@ -201,7 +201,7 @@ export default function ForgotPasswordFlow() {
               >
                 <Link
                   to="/forgot-password"
-                  className="font-medium leading-5 tracking-tighter underline-offset-2 underline"
+                  className="font-medium leading-5 tracking-tighter underline-offset-2 underline h-5"
                 >
                   Resend
                 </Link>
@@ -233,8 +233,8 @@ export default function ForgotPasswordFlow() {
               }}
             >
               {(field) => (
-                <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="newPassword">New Password</Label>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="newPassword" className="min-h-5">New Password</Label>
                   <div className="relative">
                     <LockKeyhole className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
                     <Input
@@ -248,7 +248,7 @@ export default function ForgotPasswordFlow() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((p) => !p)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-gray-700 active:text-gray-900 hover:cursor-pointer"
                     >
                       {showPassword ? (
                         <EyeOff className="w-4 h-4" />
@@ -278,8 +278,10 @@ export default function ForgotPasswordFlow() {
               }}
             >
               {(field) => (
-                <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="confirmPassword">Retype Password</Label>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="confirmPassword" className="min-h-5">
+                    Retype Password
+                  </Label>
                   <div className="relative">
                     <LockKeyhole className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
                     <Input
@@ -293,7 +295,7 @@ export default function ForgotPasswordFlow() {
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword((p) => !p)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-gray-700 active:text-gray-900 hover:cursor-pointer"
                     >
                       {showConfirmPassword ? (
                         <EyeOff className="w-4 h-4" />

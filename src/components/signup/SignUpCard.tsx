@@ -16,7 +16,6 @@ type SignUpCardProps = {
   children: ReactNode;
 };
 
-// ── Content Divider ───────────────────────────────────────────────────────────
 function ContentDivider() {
   return (
     <div className="w-93.25 h-0">
@@ -25,7 +24,6 @@ function ContentDivider() {
   );
 }
 
-// ── Card Header ───────────────────────────────────────────────────────────────
 function CardHeader({ icon, title, subtitle }: CardHeaderProps) {
   return (
     <div className="flex flex-col items-center w-93.25 gap-2">
@@ -51,15 +49,6 @@ function CardHeader({ icon, title, subtitle }: CardHeaderProps) {
   );
 }
 
-// ── SignUpCard ────────────────────────────────────────────────────────────────
-// Props:
-//   title       (string)    — card heading
-//   subtitle    (string)    — card subheading
-//   icon        (ReactNode) — optional icon, defaults to <CustomIcon />
-//   showDivider (bool)      — show HR divider, default true
-//   width       (number)    — card width px, default 437
-//   minHeight   (number)    — card min-height px, default 578
-//   children    (ReactNode) — card body content
 export default function SignUpCard({
   title       = "Create a new account",
   subtitle    = "Enter your details to Sign up.",
